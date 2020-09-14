@@ -1,15 +1,14 @@
-'use strict';
+'use strict'
 
 const Controller = require('egg').Controller;
 
 class HomeController extends Controller {
 	async index() {
-		const { ctx } = this;
-		ctx.body = 'hi, egg';
+		this.ctx.body = "api 模拟接口";
 	}
-	async list() {
-		const { ctx } = this;
-		ctx.body = 'hi, thomas';
+
+	async home() {
+		this.ctx.body = "<h2>Hello Home</h2>";
 	}
 }
 
