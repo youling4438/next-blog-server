@@ -16,6 +16,7 @@ class HomeController extends Controller {
 		'article.title as title ,' + 
 		'article.introduce as intro ,' + 
 		'article.addTime as addTime ,' + 
+		"FROM_UNIXTIME(article.addTime,'%Y-%m-%d %H:%i:%s' ) as addTime ," + 
 		'article.view_count as viewCount ,' + 
 		'type.typeName as typeName ' + 
 		'FROM article LEFT JOIN type ON article.type_id = type.id';
