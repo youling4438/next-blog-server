@@ -5,10 +5,11 @@ const Controller = Egg.Controller;
 
 class HomeController extends Controller {
 	async index() {
-		this.ctx.body = 'api 接口数据';
+		const content = await this.app.mysql.get('blog-content', {});
+		this.ctx.body = content;
 	} 
 	async home() {
-		this.ctx.body = "<h2>Hwllo Home!</h2>"
+		this.ctx.body = "<h2>Hello Home!</h2>"
 	} 
 }
 
