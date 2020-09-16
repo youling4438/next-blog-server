@@ -23,6 +23,23 @@ class HomeController extends Controller {
 		const results = await this.app.mysql.query(sql);
 		this.ctx.body = {data: results};
 	}
+	async getArticleDetailById() {
+		let id = this.ctx.params.id;
+		console.log('id : ', id)
+		let sql = 'SELECT article.id as id ,' + 
+		'article.title as title ,' + 
+		'article.introduce as intro ,' + 
+		'article.addTime as addTime ,' + 
+		"FROM_UNIXTIME(article.addTime,'%Y-%m-%d %H:%i:%s' ) as addTime ," + 
+		'article.view_count as viewCount ,' + 
+		'type.typeName as typeName ,' + 
+		'type.id as typeId '+
+		'FROM article LEFT JOIN type ON article.type_id = type.id ' +
+		'WHERE article.id = '+id
+		console.log('sql :', sql);
+		const results = await this.app.mysql.query(sql);
+		this.ctx.body = {data: results};
+	}
 }
 
 module.exports = HomeController;

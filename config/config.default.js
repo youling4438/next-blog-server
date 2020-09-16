@@ -28,3 +28,14 @@ exports.mysql = {
 
 // set config.keys
 exports.keys = 'my super cool keys';
+
+exports.security = {
+	csrf: {
+		enable: false
+	},
+	domainWhiteList: ['*']
+};
+exports.cors = {
+	origin: '*',
+	allowMethods: 'GET,HEAD,PUT,POST,DELETE,PATCH,OPTIONS'
+};
