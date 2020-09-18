@@ -7,38 +7,43 @@ class HomeController extends Controller {
 	async index() {
 		const content = await this.app.mysql.get('blog-content', {});
 		this.ctx.body = content;
-	} 
+	}
 	async home() {
 		this.ctx.body = "<h2>Hello Home!</h2>"
 	}
 	async getArticleList() {
-		let sql = 'SELECT article.id as id ,' + 
-		'article.title as title ,' + 
-		'article.introduce as intro ,' + 
-		'article.addTime as addTime ,' + 
-		"FROM_UNIXTIME(article.addTime,'%Y-%m-%d %H:%i:%s' ) as addTime ," + 
-		'article.view_count as viewCount ,' + 
-		'type.typeName as typeName ' + 
-		'FROM article LEFT JOIN type ON article.type_id = type.id';
+		let sql = 'SELECT article.id as id ,' +
+			'article.title as title ,' +
+			'article.introduce as intro ,' +
+			'article.addTime as addTime ,' +
+			"FROM_UNIXTIME(article.addTime,'%Y-%m-%d %H:%i:%s' ) as addTime ," +
+			'article.view_count as viewCount ,' +
+			'type.typeName as typeName ' +
+			'FROM article LEFT JOIN type ON article.type_id = type.id';
 		const results = await this.app.mysql.query(sql);
-		this.ctx.body = {data: results};
+		this.ctx.body = { data: results };
 	}
 	async getArticleDetailById() {
 		let id = this.ctx.params.id;
 		console.log('id : ', id)
-		let sql = 'SELECT article.id as id ,' + 
-		'article.title as title ,' + 
-		'article.introduce as intro ,' + 
-		'article.addTime as addTime ,' + 
-		"FROM_UNIXTIME(article.addTime,'%Y-%m-%d %H:%i:%s' ) as addTime ," + 
-		'article.view_count as viewCount ,' + 
-		'type.typeName as typeName ,' + 
-		'type.id as typeId '+
-		'FROM article LEFT JOIN type ON article.type_id = type.id ' +
-		'WHERE article.id = '+id
+		let sql = 'SELECT article.id as id ,' +
+			'article.title as title ,' +
+			'article.introduce as intro ,' +
+			'article.addTime as addTime ,' +
+			"FROM_UNIXTIME(article.addTime,'%Y-%m-%d %H:%i:%s' ) as addTime ," +
+			'article.view_count as viewCount ,' +
+			'type.typeName as typeName ,' +
+			'type.id as typeId ' +
+			'FROM article LEFT JOIN type ON article.type_id = type.id ' +
+			'WHERE article.id = ' + id
 		console.log('sql :', sql);
 		const results = await this.app.mysql.query(sql);
-		this.ctx.body = {data: results};
+		this.ctx.body = { data: results };
+	}
+
+	async getTypeInfo() {
+		const results = await this.app.mysql.select('type');
+		this.ctx.body = { data: results }
 	}
 }
 
